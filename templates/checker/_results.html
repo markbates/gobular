@@ -1,0 +1,38 @@
+<div id="results">
+
+  <%= if (compile_error) { %>
+  <div class="alert alert-danger" role="alert">
+    <%= compile_error %>
+  </div>
+  <% } %>
+
+  <%= if (results && len(results) > 0) { %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>Line</td>
+        <td>Matches</td>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for (res) in results { %>
+      <tr>
+        <td><%= res.Num %></td>
+        <td ><%= res.Line %></td>
+        <td width="50%">
+          <%= if (len(res.Matches) > 0) { %>
+          <ul class="list-group">
+            <%= for (m) in res.Matches { %>
+            <li class="list-group-item"><%= m %></li>
+            <% } %>
+          </ul>
+          <% } %>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+</div>

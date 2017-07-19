@@ -1,0 +1,7 @@
+<%= form_for(checker, {action:"/check", method: "GET"}) { %>
+  <%= f.InputTag("Expression") %>
+  <%= f.TextArea("TestString", {rows: 10}) %>
+  <input type="submit" value="Run" class="btn btn-success" />
+<% } %>
+
+<%= partial("checker/results.html") %>
