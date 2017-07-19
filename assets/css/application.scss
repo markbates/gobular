@@ -14,8 +14,7 @@ body {
 .footer {
   position: absolute;
   bottom: 0;
-
-  // width: 100%;
+  width: 100%;
 
   /* Set the fixed height of the footer here */
   height: 60px;
@@ -23,10 +22,6 @@ body {
   overflow: auto;
 }
 
-// body > .container {
-//   padding: 60px 15px 0;
-// }
-//
 .container .text-muted {
   margin: 20px 0;
 }
