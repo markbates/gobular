@@ -2,7 +2,10 @@ require("expose-loader?$!expose-loader?jQuery!jquery");
 require("bootstrap/dist/js/bootstrap.js");
 
 $(() => {
-  $("#checker-Expression").on("keyup", (e) => {
+  $("#checker-Expression").on("change keyup paste", (e) => {
+    $("#checker-form").submit();
+  });
+  $("#checker-TestString").on("change keyup paste", (e) => {
     $("#checker-form").submit();
   });
 
