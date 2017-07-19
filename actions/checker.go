@@ -10,7 +10,11 @@ import (
 )
 
 func NewChecker(c buffalo.Context) error {
-	c.Set("checker", models.Checker{})
+	checker := models.Checker{
+		Expression: exp,
+		TestString: testString,
+	}
+	c.Set("checker", checker)
 	return c.Render(200, r.HTML("checker/new.html"))
 }
 
@@ -57,3 +61,14 @@ func RunChecker(c buffalo.Context) error {
 	}
 	return c.Render(200, r.Template("text/html", "checker/_results.html"))
 }
+
+const exp = `(Go|start|buffalo)`
+const testString = `Welcome to Gobular!!
+
+This is an online regular expression tester for Go, sometimes known as Golang.
+
+All you need to do is to start typing an expression and set up your own test string
+and Gobular will do the rest!
+
+This project is powered by http://gobuffalo.io. We hope you enjoy.
+`
