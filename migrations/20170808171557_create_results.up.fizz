@@ -1,0 +1,8 @@
+create_table("results", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("num", "integer", {})
+	t.Column("line", "string", {})
+	t.Column("matches", "varchar[]", {})
+	t.Column("expression_id", "uuid", {})
+})
+add_index("results", "expression_id", {})

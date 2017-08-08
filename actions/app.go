@@ -5,6 +5,7 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
+	"github.com/markbates/gobular/models"
 
 	"github.com/gobuffalo/envy"
 
@@ -28,6 +29,7 @@ func App() *buffalo.App {
 			SessionName: "_gobular_session",
 		})
 
+		app.Use(middleware.PopTransaction(models.DB))
 		app.Use(middleware.AddContentType("text/html"))
 		// Automatically save the session if the underlying
 		// Handler does not return an error.
@@ -51,8 +53,8 @@ func App() *buffalo.App {
 		app.Use(T.Middleware())
 
 		app.GET("/", NewChecker)
-		app.POST("/check", RunChecker)
-		app.GET("/check", RunChecker)
+		app.POST("/x", RunChecker)
+		app.GET("/x/{expression_id}", ReRunChecker)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 	}

@@ -1,4 +1,4 @@
-<%= form_for(checker, {action:"/check", method: "GET"}) { %>
+<%= form_for(expression, {action:"/x", method: "Post"}) { %>
   <%= f.InputTag("Expression") %>
   <%= f.TextArea("TestString", {rows: 10}) %>
   <input type="submit" value="Run" class="btn btn-success" />
