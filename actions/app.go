@@ -5,11 +5,11 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
+	"github.com/gobuffalo/buffalo/middleware/csrf"
 	"github.com/markbates/gobular/models"
 
 	"github.com/gobuffalo/envy"
 
-	"github.com/gobuffalo/buffalo/middleware/i18n"
 	"github.com/gobuffalo/packr"
 )
 
@@ -17,23 +17,20 @@ import (
 // application is being run. Default is "development".
 var ENV = envy.Get("GO_ENV", "development")
 var app *buffalo.App
-var T *i18n.Translator
 
 // App is where all routes and middleware for buffalo
 // should be defined. This is the nerve center of your
 // application.
 func App() *buffalo.App {
 	if app == nil {
-		app = buffalo.Automatic(buffalo.Options{
+		app = buffalo.New(buffalo.Options{
 			Env:         ENV,
 			SessionName: "_gobular_session",
 		})
 
+		app.Use(csrf.New)
 		app.Use(middleware.PopTransaction(models.DB))
 		app.Use(middleware.AddContentType("text/html"))
-		// Automatically save the session if the underlying
-		// Handler does not return an error.
-		app.Use(middleware.SessionSaver)
 		app.Use(func(next buffalo.Handler) buffalo.Handler {
 			return func(c buffalo.Context) error {
 				c.Set("year", time.Now().Year())
@@ -44,13 +41,6 @@ func App() *buffalo.App {
 		if ENV == "development" {
 			app.Use(middleware.ParameterLogger)
 		}
-
-		// Setup and use translations:
-		var err error
-		if T, err = i18n.New(packr.NewBox("../locales"), "en-US"); err != nil {
-			app.Stop(err)
-		}
-		app.Use(T.Middleware())
 
 		app.GET("/", NewChecker)
 		app.POST("/x", RunChecker)

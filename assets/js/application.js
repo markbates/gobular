@@ -1,5 +1,5 @@
 require("expose-loader?$!expose-loader?jQuery!jquery");
-require("bootstrap/dist/js/bootstrap.js");
+require("bootstrap/dist/js/bootstrap.bundle.js");
 
 $(() => {
   $("#expression-Expression").on("change keyup paste", () => {

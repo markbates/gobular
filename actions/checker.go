@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/slices"
 	"github.com/markbates/gobular/models"
-	"github.com/markbates/pop"
-	"github.com/markbates/pop/slices"
 	"github.com/pkg/errors"
 )
 
